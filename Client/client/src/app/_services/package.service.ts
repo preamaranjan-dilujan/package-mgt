@@ -19,7 +19,8 @@ export class PackageService {
   }
 
   updatePackage(id: any, model: any){
-    return this.http.put(this.baseUrl + "Item/" + id, model);
+    console.log("define the request");
+    // return this.http.put(this.baseUrl + "Item/" + id, model);
   }
 
 }

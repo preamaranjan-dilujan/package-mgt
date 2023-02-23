@@ -1,3 +1,12 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
 <div class="container">
 
     <div class="d-flex flex-row-reverse mt-5 mx-5 mb-2">
@@ -50,73 +59,6 @@
     </div>
 </div>
 
-<ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">{{formName}} Item</h4>
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-            <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-    </div>
-
-    <div class="modal-body">
-
-        <div class="card mx-5 p-3">
-
-            <div class="card-body">
-
-                <form (ngSubmit)="updateItem()" [formGroup]="ItemForm" autocomplete="off">
-                    <hr>
-                    <div class="form-group">
-                        <label class="form-check-label" for="name">Name</label>
-                        <input type="text" id="name" name="name" class="form-control" formControlName="name"
-                            placeholder="name">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-check-label" for="name">Start Time</label>
-                        <!-- <input type="text" id="name" name="startTime" class="form-control" formControlName="startTime"
-                            placeholder="startTime"> -->
-                            <input type="text" name="startTime" class="form-control" formControlName="startTime"
-                            placeholder="Start Time" bsDatepicker >
-                    </div>
-                    <div class="form-group">
-                        <label class="form-check-label" for="endTime">End Time</label>
-                        <!-- <input type="text" id="endTime" name="endTime" class="form-control" formControlName="endTime"
-                            placeholder="endTime"> -->
-                            <input type="text" name="startTime" class="form-control" formControlName="endTime"
-                            placeholder="End Time" bsDatepicker>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-check-label" for="description">Description</label>
-                        <input type="text" id="description" name="description" class="form-control"
-                            formControlName="description" placeholder="description">
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" id="active" type="checkbox" name="active"
-                            formControlName="active">
-                        <label class="form-check-label" for="active">
-                            IsActive
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-check-label" for="price">Price</label>
-                        <input type="text" id="price" name="price" class="form-control" formControlName="price"
-                            placeholder="price">
-                    </div>
-
-                    <div class="form-group text-center">
-                        <button *ngIf="showButton" type="submit" class="btn btn-success mr-2">Register</button>
-                        <!-- <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button> -->
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</ng-template>
-
 
 
 <ng-template #templateAdd>
@@ -136,20 +78,37 @@
                     <hr>
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" formControlName="name" placeholder="name">
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.name.touched || submitted) && itemFormControl.name.errors?.['required']">
+                            Name is required
+                        </span>
                     </div>
+
                     <div class="form-group">
                         <input type="text" name="startTime" class="form-control" formControlName="startTime"
                             placeholder="startTime" bsDatepicker>
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.startTime.touched || submitted) && itemFormControl.startTime.errors?.['required']">
+                            Start time is required
+                        </span>
                     </div>
+
                     <div class="form-group">
                         <input type="text" name="endTime" class="form-control" formControlName="endTime"
-                            placeholder="endTime" bsDatepicker 
-                           >
+                            placeholder="endTime" bsDatepicker>
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.endTime.touched || submitted) && itemFormControl.endTime.errors?.['required']">
+                            End time is required
+                        </span>
                     </div>
 
                     <div class="form-group">
                         <input type="text" name="description" class="form-control" formControlName="description"
                             placeholder="description">
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.description.touched || submitted) && itemFormControl.description.errors?.['required']">
+                            Description is required
+                        </span>
                     </div>
 
                     <div class="form-check">
@@ -157,11 +116,114 @@
                         <label class="form-check-label" for="active">
                             active
                         </label>
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.active.touched || submitted) && itemFormControl.active.errors?.['required']">
+                            Active is required
+                        </span>
                     </div>
 
                     <div class="form-group">
                         <input type="text" name="price" class="form-control" formControlName="price"
                             placeholder="price">
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.price.touched || submitted) && itemFormControl.price.errors?.['required']">
+                            Price is required
+                        </span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button *ngIf="showButton" type="submit" class="btn btn-success mr-2">Register</button>
+                        <!-- <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button> -->
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- View and Update the form -->
+<ng-template #template>
+
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{formName}} Item</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+        <div class="card mx-5 p-3">
+
+            <div class="card-body">
+
+                <form (ngSubmit)="updateItem()" [formGroup]="ItemForm" autocomplete="off">
+                    <hr>
+                    <div class="form-group">
+                        <label class="form-check-label" for="name">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" formControlName="name"
+                            placeholder="name">
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.name.touched || submitted) && itemFormControl.name.errors?.['required']">
+                            Name is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-check-label" for="name">Start Time</label>
+                        <!-- <input type="text" id="name" name="startTime" class="form-control" formControlName="startTime"
+                            placeholder="startTime"> -->
+                        <input type="text" name="startTime" class="form-control" formControlName="startTime"
+                            placeholder="Start Time" bsDatepicker>
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.startTime.touched || submitted) && itemFormControl.startTime.errors?.['required']">
+                            StartTime is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-check-label" for="endTime">End Time</label>
+                        <!-- <input type="text" id="endTime" name="endTime" class="form-control" formControlName="endTime"
+                            placeholder="endTime"> -->
+                        <input type="text" name="startTime" class="form-control" formControlName="endTime"
+                            placeholder="End Time" bsDatepicker>
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.endTime.touched || submitted) && itemFormControl.endTime.errors?.['required']">
+                            EndTime is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-check-label" for="description">Description</label>
+                        <input type="text" id="description" name="description" class="form-control"
+                            formControlName="description" placeholder="description">
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.description.touched || submitted) && itemFormControl.description.errors?.['required']">
+                            Description is required
+                        </span>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" id="active" type="checkbox" name="active"
+                            formControlName="active">
+                        <label class="form-check-label" for="active">
+                            IsActive
+                        </label>
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.active.touched || submitted) && itemFormControl.active.errors?.['required']">
+                            Active is required
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-check-label" for="price">Price</label>
+                        <input type="text" id="price" name="price" class="form-control" formControlName="price"
+                            placeholder="price">
+                        <span class="text-danger"
+                            *ngIf="(itemFormControl.price.touched || submitted) && itemFormControl.price.errors?.['required']">
+                            Price is required
+                        </span>
                     </div>
 
                     <div class="form-group text-center">

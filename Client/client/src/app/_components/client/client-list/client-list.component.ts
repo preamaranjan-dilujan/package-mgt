@@ -1,6 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { ClientService } from 'src/app/_services/client.service';
 
 @Component({
@@ -16,13 +18,13 @@ export class ClientListComponent implements OnInit {
   
   clientForm = new FormGroup({
 
-    name : new FormControl(''),
-    email : new FormControl(''),
-    phone : new FormControl(''),
-    address : new FormControl(''),
-    isActive : new FormControl(''),
-    gender : new FormControl(''),
-    type : new FormControl('')
+    name : new FormControl('', Validators.required),
+    email : new FormControl('',  [Validators.required, Validators.email]),
+    phone : new FormControl('',  Validators.required),
+    address : new FormControl('',  Validators.required),
+    isActive : new FormControl('',  Validators.required),
+    gender : new FormControl('',  Validators.required),
+    type : new FormControl('',  Validators.required)
 
   });
 
@@ -30,17 +32,22 @@ export class ClientListComponent implements OnInit {
 
   formName : any;
 
-  constructor(private clientService : ClientService, private modalService: BsModalService){}
+  submitted = false;
+
+  constructor(private clientService : ClientService, 
+    private modalService: BsModalService, 
+    private spinner: NgxSpinnerService, 
+    private toastr : ToastrService){}
 
   ngOnInit(): void {
     this.showClientList();
-   
   }
 
 
   viewModal(template: TemplateRef<any>, client: any) {
     this.clientForm.disable();
     this.formName = "View";
+    this.showButton = false;
     this.modalRef = this.modalService.show(template);
     this.clientForm.patchValue(client);
   }
@@ -54,16 +61,31 @@ export class ClientListComponent implements OnInit {
   }
 
   showClientList(){
+    this.spinner.show();
     this.clientService.showClientList().subscribe( (response : any)  => {
       console.log(response);
       this.clients = response["$values"];
+      //this.spinner.hide();
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 3000);
     }, err => {
       console.log(err); 
+      //this.spinner.hide();
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 3000);
     })
   }
 
   updateClient(){
+    this.submitted = true;
+    console.log("not implemented yet, backend updating");
+    this.toastr.warning("Backend updating");
+  }
 
+  get clientFormControl() {
+    return this.clientForm.controls;
   }
 
 }

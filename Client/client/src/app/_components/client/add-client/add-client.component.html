@@ -1,35 +1,53 @@
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
 <div class="container">
 
     <div class="card mx-5 p-5">
 
+        <div class="card-header">
+            <h5 class="card-title">Add Client</h5>
+        </div>
+
         <div class="card-body">
 
             <form [formGroup]="clientForm" (ngSubmit)="addClient()" autocomplete="off">
-                <hr>
+                <hr />
                 <div class="form-group">
                     <input type="text" name="name" class="form-control" formControlName="name" placeholder="name">
+                    <span class="text-danger"
+                        *ngIf="(clientFormControl.name.touched || submitted) && clientFormControl.name.errors?.['required']">
+                        Name is required
+                    </span>
                 </div>
                 <div class="form-group">
                     <input type="email" name="email" class="form-control" formControlName="email" placeholder="email">
+                    <span class="text-danger"
+                        *ngIf="(clientFormControl.email.touched || submitted) && clientFormControl.email.errors?.['required']">
+                        Email is required
+                    </span>
+                    <span class="text-danger"
+                        *ngIf="(clientFormControl.email.touched || submitted) && clientFormControl.email.errors?.['email']">
+                        Enter a valid email address
+                    </span>
                 </div>
                 <div class="form-group">
                     <input type="text" name="phone" class="form-control" formControlName="phone" placeholder="phone">
+                    <span class="text-danger"
+                        *ngIf="(clientFormControl.phone.touched || submitted) && clientFormControl.phone.errors?.['required']">
+                        phone is required
+                    </span>
                 </div>
 
                 <div class="form-group">
                     <input type="text" name="address" class="form-control" formControlName="address"
                         placeholder="address">
+                    <span class="text-danger"
+                        *ngIf="(clientFormControl.address.touched || submitted) && clientFormControl.address.errors?.['required']">
+                        Address is required
+                    </span>
                 </div>
-
-                <!-- <div class="form-group">
-                    <input type="text" name="type" class="form-control" formControlName="type" placeholder="type">
-                </div> -->
-
-                <!-- <div class="form-group">
-                    <ng-multiselect-dropdown [placeholder]="'Type of User'" [settings]="typeDropdownSettings"
-                        [data]="typeDropdownList" (onSelect)="onTypeSelect($event)" (onSelectAll)="onSelectAll($event)">
-                    </ng-multiselect-dropdown>
-                </div> -->
 
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Type of User</label>
@@ -38,6 +56,10 @@
                             {{op.item_text}}
                         </option>
                     </select>
+                    <span class="text-danger"
+                        *ngIf="(clientFormControl.type.touched || submitted) && clientFormControl.type.errors?.['required']">
+                        Type is required
+                    </span>
                 </div>
 
                 <div class="form-group">
@@ -46,6 +68,10 @@
                         <label class="form-check-label" for="defaultCheck1">
                             IsActive
                         </label>
+                        <span class="text-danger"
+                            *ngIf="(clientFormControl.IsActive.touched || submitted) && clientFormControl.IsActive.errors?.['required']">
+                            Is Active is required
+                        </span>
                     </div>
                 </div>
 
@@ -55,26 +81,16 @@
                     </ng-multiselect-dropdown>
                 </div>
 
-                
-
-                <!-- <div class="form-group">
-                    <input type="radio" value="male" name="gender" class="form-control" formControlName="gender">
-                    <label class="form-check-label" for="male">
-                        male
-                    </label>
-                    <input type="radio" value="female" name="gender" class="form-control" formControlName="gender">
-                    <label class="form-check-label" for="exampleRadios1">
-                        female
-                    </label>
-                </div> -->
-
-
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="gender" id="female" formControlName="gender"
                         value="female">
                     <label class="form-check-label" for="female">
                         Female
                     </label>
+                    <span class="text-danger"
+                        *ngIf="(clientFormControl.gender.touched || submitted) && clientFormControl.gender.errors?.['required']">
+                        Gender is required
+                    </span>
                 </div>
 
                 <div class="form-check">
@@ -83,6 +99,10 @@
                     <label class="form-check-label" for="male">
                         Male
                     </label>
+                    <span class="text-danger"
+                        *ngIf="(clientFormControl.gender.touched || submitted) && clientFormControl.gender.errors?.['required']">
+                        Gender is required
+                    </span>
                 </div>
 
 

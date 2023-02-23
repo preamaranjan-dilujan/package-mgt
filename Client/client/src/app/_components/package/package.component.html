@@ -1,3 +1,13 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+
 <div class="container">
 
     <div class="d-flex flex-row-reverse mt-5 mx-5 mb-2">
@@ -111,6 +121,13 @@
                         </ng-multiselect-dropdown>
                     </div> -->
 
+                    <!-- <div class="form-group">
+                        <ul *ngFor="let package of packages">
+
+                        </ul>
+
+                    </div> -->
+
                     <div class="form-group text-center">
                         <button *ngIf="showButton" type="submit" class="btn btn-success mr-2">Register</button>
                         <!-- <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button> -->
@@ -175,8 +192,6 @@
                         <input type="text" name="price" class="form-control" formControlName="price"
                             placeholder="price">
                     </div> -->
-
-
 
                     <div class="form-group text-center">
                         <button *ngIf="showButton" type="submit" class="btn btn-success mr-2">Register</button>

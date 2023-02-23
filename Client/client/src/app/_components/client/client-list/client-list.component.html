@@ -1,3 +1,12 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
 <div class="container">
 
     <div class="d-flex flex-row-reverse mt-5 mx-5 mb-2">
@@ -75,23 +84,43 @@
                     <hr>
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" formControlName="name" placeholder="name">
+                        <span class="text-danger"
+                            *ngIf="(clientFormControl.name.touched || submitted) && clientFormControl.name.errors?.['required']">
+                            Name is required
+                        </span>
                     </div>
                     <div class="form-group">
                         <input type="email" name="email" class="form-control" formControlName="email"
                             placeholder="email">
+                        <span class="text-danger"
+                            *ngIf="(clientFormControl.email.touched || submitted) && clientFormControl.email.errors?.['required']">
+                            Email is required
+                        </span>
                     </div>
                     <div class="form-group">
                         <input type="text" name="phone" class="form-control" formControlName="phone"
                             placeholder="phone">
+                        <span class="text-danger"
+                            *ngIf="(clientFormControl.phone.touched || submitted) && clientFormControl.phone.errors?.['required']">
+                            phone is required
+                        </span>
                     </div>
 
                     <div class="form-group">
                         <input type="text" name="address" class="form-control" formControlName="address"
                             placeholder="address">
+                        <span class="text-danger"
+                            *ngIf="(clientFormControl.address.touched || submitted) && clientFormControl.address.errors?.['required']">
+                            Address is required
+                        </span>
                     </div>
 
                     <div class="form-group">
                         <input type="text" name="type" class="form-control" formControlName="type" placeholder="type">
+                        <span class="text-danger"
+                            *ngIf="(clientFormControl.type.touched || submitted) && clientFormControl.type.errors?.['required']">
+                            Type is required
+                        </span>
                     </div>
 
                     <!-- <div class="form-check">
@@ -104,10 +133,15 @@
 
                     <div class="form-group">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="defaultCheck1" formControlName="isActive">
+                            <input class="form-check-input" type="checkbox" id="defaultCheck1"
+                                formControlName="isActive">
                             <label class="form-check-label" for="defaultCheck1">
                                 IsActive
                             </label>
+                            <span class="text-danger"
+                                *ngIf="(clientFormControl.isActive.touched || submitted) && clientFormControl.isActive.errors?.['required']">
+                                Is Active is required
+                            </span>
                         </div>
                     </div>
 
@@ -117,14 +151,22 @@
                         <label class="form-check-label" for="female">
                             Female
                         </label>
+                        <span class="text-danger"
+                            *ngIf="(clientFormControl.gender.touched || submitted) && clientFormControl.gender.errors?.['required']">
+                            Gender is required
+                        </span>
                     </div>
-    
+
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender" id="male" formControlName="gender"
                             value="male">
                         <label class="form-check-label" for="male">
                             Male
                         </label>
+                        <span class="text-danger"
+                            *ngIf="(clientFormControl.gender.touched || submitted) && clientFormControl.gender.errors?.['required']">
+                            Gender is required
+                        </span>
                     </div>
 
 
